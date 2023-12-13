@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import RecipeContext from '../RecipeContext'
 import Spinner from './Spinner'
 
