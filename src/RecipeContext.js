@@ -29,7 +29,7 @@ function sleep(ms) {
           } catch(error) {
             console.log(error)
           }
-          await sleep(2000)
+          await sleep(500)
           count -= 1;
         }
       
