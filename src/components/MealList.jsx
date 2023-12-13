@@ -5,12 +5,12 @@ import MealItem from './MealItem'
 import Spinner from './Spinner'
 
 function MealList() {
-    const {themes, loading, selectedThemes, meals, fetchThemes, setSelectedThemes, fetchMeals, setLoading} = useContext(RecipeContext)
+    const {loading,  meals, fetchMeals} = useContext(RecipeContext)
     useEffect(() => {
         (async () => {
           fetchMeals()
         })();
-      }, [])
+      })
 
     if (!loading) {
         return (

@@ -6,13 +6,13 @@ import Spinner from './Spinner'
 
 function ThemeList() {
     const [selected, setSelected] = useState([])
-    const {themes, loading, selectedThemes, meals, fetchThemes, setSelectedThemes, fetchMeals, setLoading} = useContext(RecipeContext)
+    const {themes, loading, fetchThemes, setSelectedThemes} = useContext(RecipeContext)
     
     useEffect(() => {
         (async () => {
           fetchThemes()
         })();
-      }, [])
+      })
 
     const setSelectedTheme = (id, checked) => {
         if (checked) {
