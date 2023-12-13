@@ -8,11 +8,11 @@ function ThemeList() {
     const [selected, setSelected] = useState([])
     const {themes, loading, fetchThemes, setSelectedThemes} = useContext(RecipeContext)
     
-    useEffect(() => {
-        (async () => {
-          fetchThemes()
-        })();
-      })
+    // useEffect(() => {
+    //     (async () => {
+    //       fetchThemes()
+    //     })();
+    //   })
 
     const setSelectedTheme = (id, checked) => {
         if (checked) {
@@ -29,6 +29,7 @@ function ThemeList() {
   if (!loading) {
     return (
         <div>
+            <button onClick={() => fetchThemes()}>Fetch</button>
             <ul className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 justify-start pt-20">
             {themes.map((theme) => (
                 <><li key={theme}>

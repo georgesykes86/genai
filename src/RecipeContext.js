@@ -7,7 +7,7 @@ const RecipeContext = createContext()
 export const RecipeProvider = ({children}) => {
     const initialState = {
         themes: [],
-        loading: true,
+        loading: false,
         selectedThemes: [],
         meals: [],
         sessionToken: ""
@@ -29,7 +29,7 @@ function sleep(ms) {
           } catch(error) {
             console.log(error)
           }
-          await sleep(200)
+          await sleep(2000)
           count -= 1;
         }
       
@@ -40,7 +40,13 @@ function sleep(ms) {
 
     const fetchThemes = async () => {
         setLoading()
-        const response = await fetchRetry('https://webappgenai.azurewebsites.net/themes')
+        let response = undefined
+        try {
+            response = await fetchRetry('https://webappgenai.azurewebsites.net/themes', { method: "GET", headers: {}})
+        } catch {
+            stopLoading()
+            return []
+        }
         const data = await response.json()
         setSessionId(data["aiSessionId"])
         dispatch({type: 'GET_THEMES', payload: data["themes"]})
@@ -48,7 +54,13 @@ function sleep(ms) {
 
     const fetchMeals = async () => {
         setLoading()
-        const response = await fetchRetry('https://webappgenai.azurewebsites.net/meals', { method: "POST", headers: {"ai-session-id": state.sessionToken, 'Content-Type':'application/json'}, body: JSON.stringify({"themes": state.selectedThemes})})
+        let response = undefined
+        try {
+            response = await fetchRetry('https://webappgenai.azurewebsites.net/meals', { method: "POST", headers: {"ai-session-id": state.sessionToken, 'Content-Type':'application/json'}, body: JSON.stringify({"themes": state.selectedThemes})})
+        } catch {
+            stopLoading()
+            return []
+        }
         const data = await response.json()
         if (data["message"]) {
             stopLoading()
